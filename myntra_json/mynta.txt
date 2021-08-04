@@ -1,0 +1,73 @@
+import json
+from requests import Session
+s = Session()
+url = "https://www.myntra.com/web/v2/search/mens-shirt?p=4&rows=50&o=149"
+s.headers["User-Agent"]="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0"
+r = s.get(url)
+tree = json.loads(r.text)
+tree.keys()
+tree["products"]
+type(tree["products"])
+len(tree["products"])
+
+tree["products"][0].keys()
+tree["products"][0]["productName"]
+name = tree["products"][0]["productName"]
+image_url = tree["products"][0]["searchImage"]
+image_url
+tree["products"][0][""]
+mrp =tree["products"][0]["mrp"]
+mrp
+price = tree["product"][0]["price"]
+price = tree["products"][0]["price"]
+price
+
+for i in range(0,50):
+    name = tree["products"][i]["productName"]
+    image_url = tree["products"][i]["searchImage"]
+    mrp = tree["products"][i]["mrp"]
+    price = tree["products"][i]["price"]
+    print(name,image_url,mrp,price)
+    
+import pandas as pd
+for i in range(0,50):
+    name = tree["products"][i]["productName"]
+    image_url = tree["products"][i]["searchImage"]
+    mrp = tree["products"][i]["mrp"]
+    price = tree["products"][i]["price"]
+    d = {"Name":name,"Image_url":image_url,"MRP":mrp,"Price":price}
+    df = pd.DataFrame(d)
+    print(df)
+    
+    
+for i in range(0,50):
+    name = tree["products"][i]["productName"]
+    image_url = tree["products"][i]["searchImage"]
+    mrp = tree["products"][i]["mrp"]
+    price = tree["products"][i]["price"]
+    d = {"Name":name,"Image_url":image_url,"MRP":mrp,"Price":price}
+    df = pd.DataFrame(d,index=[0])
+    print(df)
+    
+    
+names = []
+image_urls = []
+mrps=[]
+prices=[]
+for i in range(0,50):
+    name = tree["products"][i]["productName"]
+    names.append(name)
+    image_urls = tree["products"][i]["searchImage"]
+    image_urls.append(image_url)
+    mrp = tree["products"][i]["mrp"]
+    mrps.append(mrp)
+    price = tree["products"][i]["price"]
+    prices.append(price)
+    
+    d = {"Name":names,"Image_url":image_urls,"MRP":mrps,"Price":prices}
+    
+df = pd.DataFrame(d)
+print(df)
+    
+    
+get_ipython().run_line_magic('pwd', '')
